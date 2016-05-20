@@ -1,17 +1,11 @@
 package lessonSwing1;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.lang.*;
 
 public class Calculator  {
 private	JTextField resultField;
@@ -28,7 +22,6 @@ private JButton button9;
 private JButton sum;
 private JButton minus;
 private JButton equally;
-private JButton multiply;
 private JButton clear;
 private JButton dot;
 private CalculatorEngine engine;
