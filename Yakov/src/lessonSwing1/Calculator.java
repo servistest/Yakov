@@ -40,7 +40,7 @@ public JFrame frame;
 public String operand;
 	
 	
-	test
+
 	public Boolean getIsNumber1() {
 		return isNumber1;
 	}
