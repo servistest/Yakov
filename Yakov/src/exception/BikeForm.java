@@ -3,8 +3,7 @@ package exception;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.TextField;
-import java.text.NumberFormat;
+
 import java.text.ParseException;
 
 import javax.swing.JButton;
