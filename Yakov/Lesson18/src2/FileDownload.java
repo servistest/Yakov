@@ -1,4 +1,8 @@
+package src2;
+
+
 import java.io.FileOutputStream;
+
 //import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
