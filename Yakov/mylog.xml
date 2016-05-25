@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-05-23T17:00:37</date>
+  <millis>1464012037306</millis>
+  <sequence>0</sequence>
+  <logger>com.exception.bike</logger>
+  <level>SEVERE</level>
+  <class>exception.BikeControl</class>
+  <method>extractModel</method>
+  <thread>12</thread>
+  <message>Order not accept bike Aist. Very many bikes =150</message>
+</record>
+</log>
