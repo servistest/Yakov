@@ -1,11 +1,9 @@
 package socket;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -23,7 +21,7 @@ public class  StockQuoteClient {
 					){
 					System.out.println("Output Name of company:" + nameOfCompany);
 						outputStream.write((nameOfCompany+"\n").getBytes());
-						outputStream.write(("\n END").getBytes());
+						outputStream.write(("END\n").getBytes());
 						
 						System.out.println("Waiting input response from server :"  );
 						String response=null;
