@@ -37,7 +37,7 @@ public class MyFrameWithCustomRenderer  extends JFrame implements TableModelList
   // class and assign it to the column price
   
   column.setCellRenderer(
-        new DefaultTableCellRenderer(){ 
+		  new DefaultTableCellRenderer(){ 
     public Component  getTableCellRendererComponent( 
              JTable table, Object value, boolean isSelected, 
                        boolean hasFocus, int row, int col) { 
