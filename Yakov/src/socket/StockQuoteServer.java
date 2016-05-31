@@ -17,10 +17,12 @@ public class StockQuoteServer {
 		try{
 			
 			serverSocket=new ServerSocket(3001);
+			
+			while(true){
 			System.out.println("Waiting for remote request:");
 			client=serverSocket.accept();
 			
-			while(true){
+		
 				try (
 						InputStreamReader inputStreamReader=new InputStreamReader(client.getInputStream());
 						BufferedReader bufferedReader=new BufferedReader(inputStreamReader);
@@ -36,7 +38,7 @@ public class StockQuoteServer {
 					messageOut=new String(Double.toString(Math.random()*100));
 					System.out.println(("For company " + messageIn +" price stock = " + messageOut));
 					outputStream.write(("For company " + messageIn +" price stock = " + messageOut+"\n").getBytes());
-					outputStream.write(("\n END").getBytes());
+					outputStream.write(("END\n").getBytes());
 					
 				}
 			}	

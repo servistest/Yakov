@@ -16,7 +16,7 @@ public class Transaction {
 			Connection	con= DriverManager.getConnection("jdbc:mysql://localhost:3306/students","root","root");
 	 	
 		){
-			//http://stackoverflow.com/questions/9260159/java-7-automatic-resource-management-jdbc-try-with-resources-statement
+			
 			con.setAutoCommit(false);
 			try(Statement stm=con.createStatement()){		
 				stm.addBatch("insert into students values(25,'Ivan3','Stepanov3','Sergevich','1990-05-03','M',2,2007)");

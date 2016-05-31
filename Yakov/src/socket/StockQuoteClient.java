@@ -43,7 +43,7 @@ public class  StockQuoteClient {
 	}
 
 	public static void main(String[] args) {
-		if (args[0]!=null){
+		if (args.length!=0){
 			System.out.println("Name of company is " + args[0]);
 			startClient(args[0]);
 			
