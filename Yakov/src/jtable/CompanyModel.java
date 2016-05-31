@@ -3,8 +3,6 @@ package jtable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
 public class CompanyModel extends AbstractTableModel {
@@ -20,7 +18,6 @@ public class CompanyModel extends AbstractTableModel {
 		modelComplany.add(new Company(3,"AEPL","40",320.36,LocalDate.of(2013,8, 13)));
 		modelComplany.add(new Company(4,"IBM","50",32.36,LocalDate.of(2014,4, 14)));
 		modelComplany.add(new Company(5,"CIS","30",12.36,LocalDate.of(2015,2, 15)));
-	
 		
 	}
 	@Override
@@ -70,7 +67,7 @@ public class CompanyModel extends AbstractTableModel {
 	public Class<?> getColumnClass(int columnIndex) {
 		// TODO Auto-generated method stub
 		return super.getColumnClass(columnIndex);
-	//	return modelComplany.get(columnIndex).getClass();
+	//	return modelComplany.get(columnIndex).getClass();	
 	}
 	
 	
