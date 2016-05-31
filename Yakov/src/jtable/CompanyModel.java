@@ -3,6 +3,8 @@ package jtable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
 public class CompanyModel extends AbstractTableModel {
@@ -55,18 +57,20 @@ public class CompanyModel extends AbstractTableModel {
 	@Override
 	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
 		switch (columnIndex) {
-		case 0: modelComplany.get(rowIndex).setOrderID((Integer.parseInt((String) aValue)));break;				
-		case 1: modelComplany.get(rowIndex).setSymbol((String)aValue);break;			
-		case 2: modelComplany.get(rowIndex).setQuanity((String)aValue);break;			
-		case 3: modelComplany.get(rowIndex).setPrice(Double.parseDouble((String)aValue));break;		
-		case 4: modelComplany.get(rowIndex).setDateOrder((LocalDate.parse(aValue.toString())));break;			
+		case 0: modelComplany.get(rowIndex).setOrderID((Integer.parseInt((String) aValue)));fireTableDataChanged();break;				
+		case 1: modelComplany.get(rowIndex).setSymbol((String)aValue);fireTableDataChanged();break;			
+		case 2: modelComplany.get(rowIndex).setQuanity((String)aValue);fireTableDataChanged();break;			
+		case 3: modelComplany.get(rowIndex).setPrice(Double.parseDouble((String)aValue));fireTableDataChanged();break;		
+		case 4: modelComplany.get(rowIndex).setDateOrder((LocalDate.parse(aValue.toString())));fireTableDataChanged();break;			
 		default:break;
+		
 		} 
 	}
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		// TODO Auto-generated method stub
 		return super.getColumnClass(columnIndex);
+	//	return modelComplany.get(columnIndex).getClass();
 	}
 	
 	

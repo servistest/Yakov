@@ -24,7 +24,6 @@ public class CompanyForm extends JFrame implements TableModelListener{
 		companyModel =new CompanyModel();
 		companyModel.addTableModelListener(this);
 		JTable table=new JTable(companyModel);
-		//table.setRowHeight(50);
 		table.setIntercellSpacing(new Dimension(5, 5));
 		table.setSelectionForeground(Color.blue);
 		table.setSelectionBackground(Color.GREEN);
@@ -45,7 +44,7 @@ public class CompanyForm extends JFrame implements TableModelListener{
 
 	@Override
 	public void tableChanged(TableModelEvent e) {
-		// TODO Auto-generated method stub
+		System.out.println("Change date ");
 		
 	}
 
