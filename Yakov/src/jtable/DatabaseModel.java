@@ -12,7 +12,7 @@ public class DatabaseModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Object> columnNames=new ArrayList<>();
 	private ArrayList<Object> columnTypes=new ArrayList<>();
-	private ArrayList<Object> data=new ArrayList<>();
+	public ArrayList<Object> data=new ArrayList<>();
 
 	@Override
 	public int getColumnCount() {
@@ -51,6 +51,10 @@ public class DatabaseModel extends AbstractTableModel {
 		((ArrayList<Object>)data.get(rowIndex)).set(columnIndex, aValue);
 	//	fireTableDataChanged();
 		fireTableCellUpdated(rowIndex, columnIndex-1);
+	}
+	
+	public ArrayList<Object> getRow(int rowIndex){
+		return (ArrayList<Object>) data.get(rowIndex);
 	}
 
 	@Override

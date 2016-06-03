@@ -44,13 +44,20 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 		
 	}
 	 
-	 public void insertRow(Object value) {
+	 public void insertRow() {
 		 
 		
 	}
-	 public void updateRow(Integer rowIndex)  {
-		 Integer idCompany =(Integer)databaseModel.getValueAt(rowIndex, 0);
-		 while databaseModel.getValueAt(rowIndex, 0).
+	 public void updateRow(Integer rowIndex,Integer columnIndex)  {
+		 Object idCompany =databaseModel.getValueAt(rowIndex, 0);
+		 Object updateValue=databaseModel.getValueAt(rowIndex, columnIndex);
+		 
+		 System.out.println("id =" + idCompany+" rowIndex="+rowIndex + " columnIndex="+columnIndex + " value=" +updateValue);
+		 mc.updateCompany(updateValue,idCompany,columnIndex+1);
+		// Integer columnCount = databaseModel.getColumnCount();
+		 	 
+		 
+		 
 		 try {
 			mc.updateCompany();
 		} catch (SQLException e) {
@@ -63,15 +70,15 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 		}
 	 @Override
 		public void tableChanged(TableModelEvent e)  {
-			System.out.println("GetType=" +e.getType() + " Column=" + (e.getColumn()+1) +" FirstRow=" + e.getFirstRow()+ 
+			System.out.println("GetType=" +e.getType() + " Column=" + (e.getColumn()+1)  +" FirstRow=" + e.getFirstRow()+ 
 					" Value=" + databaseModel.getValueAt(e.getFirstRow(),e.getColumn()+1));
 			
 			
 			
 			System.out.println();
 			switch (e.getType()) {
-			case TableModelEvent.INSERT: insertRow(e.getFirstRow());break;
-			case TableModelEvent.UPDATE: updateRow();break;
+			case TableModelEvent.INSERT: insertRow();break;
+			case TableModelEvent.UPDATE: updateRow(e.getFirstRow(),e.getColumn()+1);break;
 			case TableModelEvent.DELETE: deleteRow();break;
 			default:
 				break;
