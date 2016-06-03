@@ -14,7 +14,7 @@ public class ManagementCompany implements DAOCompany{
 		  String sql = "SELECT * FROM COMPANY";
 		  PreparedStatement pstm=con.prepareStatement(sql);
 		  return pstm;
-	  	  //PreparedStatement pstm =createPreparedStatement(con); 
+	  	 //PreparedStatement pstm =createPreparedStatement(con); 
 		 //ResultSet resultSet=pstm.executeQuery();  
 	  }
 	
