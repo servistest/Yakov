@@ -39,9 +39,31 @@ public class ManagementCompany implements DAOCompany{
 	}
 
 	@Override
-	public void updateCompany() throws SQLException{
-		// TODO Auto-generated method stub
+	public void updateCompany(Object idColumnName,Object id,Object columnName ,Object updateValue){
+		String sql = "UPDATE  company SET ";
+		sql=sql+" " +columnName.toString()+"="+ updateValue.toString()+ " WHERE "+ idColumnName.toString()+"="+id.toString();
 		
+		/*stmt.setString(1, student.getFirstName());
+        stmt.setString(2, student.getPatronymic());
+        stmt.setString(3, student.getSurName());
+        stmt.setString(4, new String(new char[]{student.getSex()}));
+        stmt.setDate(5, new Date(student.getDateOfBirth().getTime()));
+        stmt.setInt(6, student.getGroupId());
+        stmt.setInt(7, student.getEducationYear());
+        stmt.setInt(8, student.getStudentId());
+        stmt.execute();
+		
+		System.out.println(sql);
+		
+	/*	try {
+			PreparedStatement prs=con.prepareStatement(sql);
+			resultSet=prs.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resultSet;
+	*/	
 	}
 
 	@Override
@@ -59,7 +81,7 @@ public class ManagementCompany implements DAOCompany{
 		return resultSet;
 		
 	}
-	
+
 	
 }		  
 

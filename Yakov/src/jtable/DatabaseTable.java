@@ -51,19 +51,13 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 	 public void updateRow(Integer rowIndex,Integer columnIndex)  {
 		 Object idCompany =databaseModel.getValueAt(rowIndex, 0);
 		 Object updateValue=databaseModel.getValueAt(rowIndex, columnIndex);
-		 
-		 System.out.println("id =" + idCompany+" rowIndex="+rowIndex + " columnIndex="+columnIndex + " value=" +updateValue);
-		 mc.updateCompany(updateValue,idCompany,columnIndex+1);
-		// Integer columnCount = databaseModel.getColumnCount();
-		 	 
-		 
-		 
-		 try {
-			mc.updateCompany();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 Object columnName=databaseModel.getColumnName(columnIndex);
+		 Object idColumnName =databaseModel.getColumnName(columnIndex);
+		 System.out.println("id =" + idCompany+" columnName="+columnName + " updateValue=" +updateValue);
+		 mc.updateCompany(idColumnName,idCompany,columnName,updateValue);
+		// Integer columnCount = databaseModel.getColumnCount() 
+		
+		
 	}
 	 public void deleteRow() {
 			
