@@ -1,8 +1,11 @@
 package jtable;
 
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 public class CompanyModel extends AbstractTableModel {
@@ -32,9 +35,10 @@ public class CompanyModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int column) {
+		Boolean flag=true;
 		switch (column) {
 		case 0: return modelComplany.get(row).getOrderID();				
-		case 1: return modelComplany.get(row).getSymbol();			
+		case 1: return modelComplany.get(row).getSymbol();		
 		case 2: return modelComplany.get(row).getQuanity();			
 		case 3: return modelComplany.get(row).getPrice();		
 		case 4: return modelComplany.get(row).getDateOrder();			
@@ -45,6 +49,7 @@ public class CompanyModel extends AbstractTableModel {
 	public String getColumnName(int col) {
 		return nameCount[col];
 	}
+	
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
@@ -66,8 +71,10 @@ public class CompanyModel extends AbstractTableModel {
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		// TODO Auto-generated method stub
+		
 		return super.getColumnClass(columnIndex);
 	//	return modelComplany.get(columnIndex).getClass();	
+		
 	}
 	
 	

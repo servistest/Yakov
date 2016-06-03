@@ -5,6 +5,7 @@ import java.awt.Component;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
@@ -13,6 +14,8 @@ public class CompanyFormWithRender extends JFrame implements TableModelListener{
 	 static final long serialVersionUID = 1L;
 	 CompanyModel companyModel;
 	 JTable table;
+	 
+	 TableColumn column ;
 
 	
 	    CompanyFormWithRender (String title) {
@@ -56,11 +59,12 @@ public class CompanyFormWithRender extends JFrame implements TableModelListener{
 
 	    public void tableChanged(TableModelEvent e) {
 	    	  // Code to process data changes goes here
+	        	
 	    		 System.out.println("Someone changed the data in JTable!");
 	    	 }
 	public static void main(String[] args) {
 		CompanyFormWithRender company=new CompanyFormWithRender("Order of company");
-	//	company.setBounds(400, 300, 600, 200);
+		company.setBounds(400, 300, 200, 200);
 		company.pack();
 		company.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		company.setVisible(true);
