@@ -3,7 +3,6 @@ package jtable;
 import java.awt.Component;
 
 import javax.swing.AbstractCellEditor;
-import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -17,9 +16,7 @@ public class DoubleCellEditor extends AbstractCellEditor implements TableCellEdi
 	
 	public DoubleCellEditor() {
 		comboBox=new JComboBox<>(listNumber);
-		
 		DefaultCellEditor editor=new DefaultCellEditor(comboBox);
-		
 	}
 	
 	@Override
