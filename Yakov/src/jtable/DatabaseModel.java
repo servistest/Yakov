@@ -37,6 +37,7 @@ public class DatabaseModel extends AbstractTableModel {
 	public Class<?> getColumnClass(int columnIndex) {
 	//	System.out.println((Class)columnTypes.get(columnIndex));
 		return (Class<?>)columnTypes.get(columnIndex);
+		
 	}
 
 	@Override
@@ -60,7 +61,9 @@ public class DatabaseModel extends AbstractTableModel {
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		
-		return true;
+		 if(columnIndex!=0) {
+			 return true;
+		} else return false;
 	}
 
 	public void setDataSource(ResultSet resultSet) throws SQLException, ClassNotFoundException{

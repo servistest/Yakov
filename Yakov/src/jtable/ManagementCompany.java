@@ -5,18 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Date;
 
 public class ManagementCompany implements DAOCompany{
 	private static ManagementCompany instance;
 	private static Connection con;
 	
-	  public PreparedStatement createPreparedStatement(Connection con) throws SQLException{
-		  String sql = "SELECT * FROM COMPANY";
-		  PreparedStatement pstm=con.prepareStatement(sql);
-		  return pstm;
-	  	 //PreparedStatement pstm =createPreparedStatement(con); 
-		 //ResultSet resultSet=pstm.executeQuery();  
-	  }
+	 
 	
 	private ManagementCompany(){
 		  try{
@@ -37,33 +32,34 @@ public class ManagementCompany implements DAOCompany{
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
-	public void updateCompany(Object idColumnName,Object id,Object columnName ,Object updateValue){
+	public void updateCompany(Object idColumnName,Object id,Object columnName ,Object updateValue,String typeName){
 		String sql = "UPDATE  company SET ";
-		sql=sql+" " +columnName.toString()+"="+ updateValue.toString()+ " WHERE "+ idColumnName.toString()+"="+id.toString();
-		
-		/*stmt.setString(1, student.getFirstName());
-        stmt.setString(2, student.getPatronymic());
-        stmt.setString(3, student.getSurName());
-        stmt.setString(4, new String(new char[]{student.getSex()}));
-        stmt.setDate(5, new Date(student.getDateOfBirth().getTime()));
-        stmt.setInt(6, student.getGroupId());
-        stmt.setInt(7, student.getEducationYear());
-        stmt.setInt(8, student.getStudentId());
-        stmt.execute();
-		
-		System.out.println(sql);
-		
-	/*	try {
-			PreparedStatement prs=con.prepareStatement(sql);
-			resultSet=prs.executeQuery();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		sql=sql+" " +columnName.toString()+"=? WHERE "+ idColumnName.toString()+"="+id.toString();
+		System.out.println(updateValue);
+	
+	
+		try (
+			PreparedStatement prs =con.prepareStatement(sql);
+			){		
+			switch (typeName) {
+			case "Integer":prs.setInt(1,(Integer.parseInt(updateValue.toString())));break;
+			case "Long":prs.setLong(1, Long.parseLong(updateValue.toString()));break;	
+			case "Double":prs.setDouble(1, (Double)updateValue);break;
+			case "String":prs.setString(1, (String)updateValue);break;
+			case "Date":prs.setDate(1,  new Date(((java.util.Date)updateValue).getTime()));break;
+			default:System.out.println("Error type Class=" + typeName);	break;
+			}
+			System.out.println(prs.execute());
+			
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
 		}
-		return resultSet;
-	*/	
+		
+				
+		System.out.println(sql);
+	
 	}
 
 	@Override
