@@ -49,10 +49,10 @@ public class DatabaseTable extends JFrame implements TableModelListener,ActionLi
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if (table.getSelectedRow()>0){
+						if (table.getSelectedRow()>=0){
 							deleteRow();
 						}else{
-							JOptionPane.showMessageDialog(table, "Please, select row","Warning",JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(table, "Please, select row " + table.getSelectedRow(),"Warning",JOptionPane.WARNING_MESSAGE);
 						}
 						
 					}
@@ -92,7 +92,7 @@ public class DatabaseTable extends JFrame implements TableModelListener,ActionLi
 		 String type=databaseModel.getColumnClass(columnIndex).toString();
 		 String typeName= type.substring(type.lastIndexOf('.')+1);
 		 //System.out.println("id =" + idCompany+" columnName="+columnName + " updateValue=" +updateValue+ " class=" + typeName);
-		 Thread thread = new Thread("New Thread"){
+		 Thread thread = new Thread("Update company"){
 			 public void run(){
 				 mc.updateCompany(idColumnName,idCompany,columnName,updateValue,typeName);
 			 }
@@ -101,16 +101,48 @@ public class DatabaseTable extends JFrame implements TableModelListener,ActionLi
 		
 		
 	}
+	 
+	 public void reloadTable(){
+		 
+		 databaseModel=new DatabaseModel();
+		 
+				try {
+					databaseModel.setDataSource(mc.selectAllCompany());
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				table.setModel(databaseModel);
+			 }
+		 
+		 
+		 /*databaseModel=new DatabaseModel();
+		 Thread thread = new Thread("Reload Table"){
+			 public void run(){
+				try {
+					databaseModel.setDataSource(mc.selectAllCompany());
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				table.setModel(databaseModel);
+			 }
+		 };
+		 thread.start();
+		 */
+		 
+		 
+	
 	 public void deleteRow() {
 		 Object idCompany= (Long)databaseModel.getValueAt(table.getSelectedRow(), 0);
 		 Object idColumnName =databaseModel.getColumnName(0);
 		 Thread thread = new Thread("Delete Row"){
 			 public void run(){
 				 mc.deleteCompany(idColumnName,idCompany);
+				 reloadTable();
 			 }
 		 };
 		 thread.start();
-		
 		 
 	}
 	 
@@ -127,6 +159,17 @@ public class DatabaseTable extends JFrame implements TableModelListener,ActionLi
 				break;
 			}	
 		}
+	 @Override
+		public void actionPerformed(ActionEvent e) {
+			switch (e.getActionCommand()) {
+			case "Delete": 
+				
+				break;
+
+			default:
+				break;
+			}
+		} 
 
 	public static void main(String[] args) {	
 		SwingUtilities.invokeLater(new Runnable() {
@@ -145,17 +188,7 @@ public class DatabaseTable extends JFrame implements TableModelListener,ActionLi
 
 
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-		case "Delete": 
-			
-			break;
-
-		default:
-			break;
-		}
-	} 
+	
 			
 		
 

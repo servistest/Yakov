@@ -5,6 +5,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 public class DatabaseModel extends AbstractTableModel {
@@ -73,7 +74,10 @@ public class DatabaseModel extends AbstractTableModel {
 		
 		ResultSetMetaData metaData = resultSet.getMetaData();
 		Integer columnCount= metaData.getColumnCount();
-		
+		if (resultSet==null){
+			System.out.println("!!Not data!!");
+			
+		}
 		for (int i=0;i<columnCount;i++){
 			columnNames.add(metaData.getColumnName(i+1));
 			Class type=	Class.forName(metaData.getColumnClassName(i+1));
