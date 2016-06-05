@@ -67,6 +67,9 @@ public class DatabaseModel extends AbstractTableModel {
 	}
 
 	public void setDataSource(ResultSet resultSet) throws SQLException, ClassNotFoundException{
+		data.clear();
+		columnNames.clear();
+		columnTypes.clear();
 		
 		ResultSetMetaData metaData = resultSet.getMetaData();
 		Integer columnCount= metaData.getColumnCount();

@@ -32,6 +32,20 @@ public class ManagementCompany implements DAOCompany{
 		// TODO Auto-generated method stub
 		
 	}
+	public void deleteCompany(Object idColumnName,Object idCompany)  {
+		String sql = "DELETE  FROM company WHERE  ";
+		sql=sql+ idColumnName.toString()+"="+idCompany.toString();
+		System.out.println(sql);
+		
+		try (
+			PreparedStatement prs =con.prepareStatement(sql);
+			){		
+			System.out.println("Result of insert = " + prs.execute());
+			}catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			
+	}
 	
 	@Override
 	public void updateCompany(Object idColumnName,Object id,Object columnName ,Object updateValue,String typeName){
@@ -51,7 +65,7 @@ public class ManagementCompany implements DAOCompany{
 			case "Date":prs.setDate(1,  new Date(((java.util.Date)updateValue).getTime()));break;
 			default:System.out.println("Error type Class=" + typeName);	break;
 			}
-			System.out.println(prs.execute());
+			System.out.println("Result of insert = " + prs.execute());
 			
 		}catch (SQLException e) {
 			System.out.println(e.getMessage());
