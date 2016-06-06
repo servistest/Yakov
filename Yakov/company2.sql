@@ -11,3 +11,5 @@ insert into company (symbol, quanity,price,dateOrder)
 values ('POYT', 210, 13.23,'2012-03-08');
 insert into company (symbol, quanity,price,dateOrder) 
 values ('ERTE', 110, 11.32,'2012-02-21');
+
+

@@ -11,7 +11,6 @@ public class ManagementCompany implements DAOCompany{
 	private static ManagementCompany instance;
 	private static Connection con;
 	
-	 
 	
 	private ManagementCompany(){
 		  try{

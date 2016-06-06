@@ -34,7 +34,6 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 		table.setDefaultEditor(Number.class, new NumberCellEditor());
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	
-		
 		JPanel btnPanel=new JPanel();
 		btnDelete=new JButton("Delete");
 		//btnDelete.setActionCommand("Delete");
@@ -83,15 +82,14 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 			 }
 		 };
 		 thread.start();
-
+		// reloadTable();	
 	}
 	 
 	 public void reloadTable() {
-		 
-		 		 DatabaseModel databaseModel;	
-		 		databaseModel=new DatabaseModel(mc.selectAllCompany());
-				table.setModel(databaseModel);
-			 }
+			DatabaseModel databaseModel=new DatabaseModel(mc.selectAllCompany());
+			table.setModel(databaseModel);
+			databaseModel.addTableModelListener(this);
+	}
 		 
  
 		 
