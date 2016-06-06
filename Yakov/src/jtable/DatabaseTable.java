@@ -115,9 +115,7 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 				
 			}
 		});
-		  
-		 
-	
+
 	}
 	 
 	 @Override
