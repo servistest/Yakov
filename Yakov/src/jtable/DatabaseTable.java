@@ -19,25 +19,21 @@ import javax.swing.event.TableModelListener;
 public class DatabaseTable extends JFrame implements TableModelListener{
 
 	private static final long serialVersionUID = 1L;
-//	private DatabaseModel databaseModel;
 	private JTable table;
 	private ManagementCompany mc=null;
 	private JButton btnDelete;
 	  
 	  public  void LoadDataToForm(ResultSet resultSet)   {
 
-	  DatabaseModel databaseModel=new DatabaseModel(resultSet);
-		//databaseModel.setDataSource(resultSet);
+		DatabaseModel databaseModel=new DatabaseModel(resultSet);
 		databaseModel.addTableModelListener(this);
 		table=new JTable(databaseModel);
 		table.setDefaultEditor(Date.class, new DateCellEditor());
 		table.setDefaultEditor(Double.class, new DoubleCellEditor());
 		table.setDefaultEditor(Number.class, new NumberCellEditor());
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	
 		JPanel btnPanel=new JPanel();
 		btnDelete=new JButton("Delete");
-		//btnDelete.setActionCommand("Delete");
 		btnPanel.add(add(new JScrollPane(table)));
 		btnPanel.add(btnDelete);
 		add(btnPanel);
@@ -76,7 +72,6 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 		 Object idColumnName =databaseModel.getColumnName(0);		 
 		 String type=databaseModel.getColumnClass(columnIndex).toString();
 		 String typeName= type.substring(type.lastIndexOf('.')+1);
-		 //System.out.println("id =" + idCompany+" columnName="+columnName + " updateValue=" +updateValue+ " class=" + typeName);
 		 Thread thread = new Thread("Update company"){
 			 public void run(){
 				 mc.updateCompany(idColumnName,idCompany,columnName,updateValue,typeName);
@@ -88,16 +83,10 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 	 
 	 public void reloadTable() {
 		 DatabaseModel databaseModel=new DatabaseModel(mc.selectAllCompany());
-		 SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					table.setModel(databaseModel);
-				}
-			});
+		 table.setModel(databaseModel);
 		 databaseModel.addTableModelListener(this);
 	}
 		 
-	 
 	
 	 public void deleteRow() {
 		 DatabaseModel databaseModel=(DatabaseModel)table.getModel();
@@ -106,18 +95,27 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 		 Thread thread = new Thread("Delete company"){
 			 public void run(){
 				 mc.deleteCompany(idColumnName,idCompany);
-
 			 }
 		 };
 		 thread.start();
-		 reloadTable();
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					reloadTable();
+					
+				}
+			});
  
 	}
 	 
 	 @Override
 		public void tableChanged(TableModelEvent e)  {
-		//	System.out.println("GetType=" +e.getType() + " Column=" + (e.getColumn()+1)  +" FirstRow=" + e.getFirstRow()+ 
-		//			" Value=" + databaseModel.getValueAt(e.getFirstRow(),e.getColumn()+1));
 				
 			switch (e.getType()) {
 			case TableModelEvent.INSERT: insertRow();break;
