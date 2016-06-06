@@ -36,7 +36,7 @@ public class DatabaseTable extends JFrame implements TableModelListener,ActionLi
 				table.setDefaultEditor(Date.class, new DateCellEditor());
 				table.setDefaultEditor(Double.class, new DoubleCellEditor());
 				table.setDefaultEditor(Number.class, new NumberCellEditor());
-				table.setRowSelectionInterval(0, 0);
+				
 				//this.add(new JScrollPane(table));
 				
 				JPanel btnPanel=new JPanel();
@@ -139,10 +139,19 @@ public class DatabaseTable extends JFrame implements TableModelListener,ActionLi
 		 Thread thread = new Thread("Delete Row"){
 			 public void run(){
 				 mc.deleteCompany(idColumnName,idCompany);
-				 reloadTable();
+			
 			 }
 		 };
 		 thread.start();
+		 SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				reloadTable();
+				
+			}
+		});
+		 
 		 
 	}
 	 
