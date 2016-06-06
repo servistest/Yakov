@@ -25,7 +25,7 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 	private JButton btnDelete;
 	  
 	  public  void LoadDataToForm(ResultSet resultSet)   {
-<<<<<<< HEAD
+
 	  DatabaseModel databaseModel=new DatabaseModel(resultSet);
 		//databaseModel.setDataSource(resultSet);
 		databaseModel.addTableModelListener(this);
@@ -50,19 +50,7 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 				}else{
 					JOptionPane.showMessageDialog(table, "Please, select row " + table.getSelectedRow(),"Warning",JOptionPane.WARNING_MESSAGE);
 				}
-=======
-		  try {
-			    databaseModel=new DatabaseModel();
-				databaseModel.setDataSource(resultSet);
-				databaseModel.addTableModelListener(this);
-				table=new JTable(databaseModel);
-				table.setDefaultEditor(Date.class, new DateCellEditor());
-				table.setDefaultEditor(Double.class, new DoubleCellEditor());
-				table.setDefaultEditor(Number.class, new NumberCellEditor());
-				
-				//this.add(new JScrollPane(table));
->>>>>>> refs/heads/updateDatabase
-				
+
 			}
 		});
 	  }  	
@@ -99,13 +87,17 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 	}
 	 
 	 public void reloadTable() {
-			DatabaseModel databaseModel=new DatabaseModel(mc.selectAllCompany());
-			table.setModel(databaseModel);
-			databaseModel.addTableModelListener(this);
+		 DatabaseModel databaseModel=new DatabaseModel(mc.selectAllCompany());
+		 SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					table.setModel(databaseModel);
+				}
+			});
+		 databaseModel.addTableModelListener(this);
 	}
 		 
- 
-		 
+	 
 	
 	 public void deleteRow() {
 		 DatabaseModel databaseModel=(DatabaseModel)table.getModel();
@@ -114,36 +106,12 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 		 Thread thread = new Thread("Delete company"){
 			 public void run(){
 				 mc.deleteCompany(idColumnName,idCompany);
-<<<<<<< HEAD
-=======
-			
->>>>>>> refs/heads/updateDatabase
+
 			 }
 		 };
 		 thread.start();
-<<<<<<< HEAD
-		  
-		  SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				reloadTable();
-				
-			}
-		});
-
-=======
-		 SwingUtilities.invokeLater(new Runnable() {
-			
-			@Override
-			public void run() {
-				reloadTable();
-				
-			}
-		});
-		 
-		 
->>>>>>> refs/heads/updateDatabase
+		 reloadTable();
+ 
 	}
 	 
 	 @Override
