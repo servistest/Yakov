@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,55 +19,45 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.xml.ws.spi.Invoker;
 
-public class DatabaseTable extends JFrame implements TableModelListener,ActionListener{
+public class DatabaseTable extends JFrame implements TableModelListener{
 
 	private static final long serialVersionUID = 1L;
-	private DatabaseModel databaseModel;
+//	private DatabaseModel databaseModel;
 	private JTable table;
 	private ManagementCompany mc=null;
 	private JButton btnDelete;
-		
 	  
 	  public  void LoadDataToForm(ResultSet resultSet)   {
-		  try {
-			    databaseModel=new DatabaseModel();
-				databaseModel.setDataSource(resultSet);
-				databaseModel.addTableModelListener(this);
-				table=new JTable(databaseModel);
-				table.setDefaultEditor(Date.class, new DateCellEditor());
-				table.setDefaultEditor(Double.class, new DoubleCellEditor());
-				table.setDefaultEditor(Number.class, new NumberCellEditor());
-				table.setRowSelectionInterval(0, 0);
-				//this.add(new JScrollPane(table));
+	  DatabaseModel databaseModel=new DatabaseModel(resultSet);
+		//databaseModel.setDataSource(resultSet);
+		databaseModel.addTableModelListener(this);
+		table=new JTable(databaseModel);
+		table.setDefaultEditor(Date.class, new DateCellEditor());
+		table.setDefaultEditor(Double.class, new DoubleCellEditor());
+		table.setDefaultEditor(Number.class, new NumberCellEditor());
+		table.setRowSelectionInterval(0, 0);
+		//this.add(new JScrollPane(table));
+		
+		
+		JPanel btnPanel=new JPanel();
+		btnDelete=new JButton("Delete");
+		//btnDelete.setActionCommand("Delete");
+		btnPanel.add(add(new JScrollPane(table)));
+		btnPanel.add(btnDelete);
+		add(btnPanel);
+		btnDelete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (table.getSelectedRow()>=0){
+					deleteRow();
+				}else{
+					JOptionPane.showMessageDialog(table, "Please, select row " + table.getSelectedRow(),"Warning",JOptionPane.WARNING_MESSAGE);
+				}
 				
-				JPanel btnPanel=new JPanel();
-				btnDelete=new JButton("Delete");
-				//btnDelete.setActionCommand("Delete");
-				btnPanel.add(add(new JScrollPane(table)));
-				btnPanel.add(btnDelete);
-				add(btnPanel);
-				btnDelete.addActionListener(new ActionListener() {
-					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						if (table.getSelectedRow()>=0){
-							deleteRow();
-						}else{
-							JOptionPane.showMessageDialog(table, "Please, select row " + table.getSelectedRow(),"Warning",JOptionPane.WARNING_MESSAGE);
-						}
-						
-					}
-				});
-				
-				btnPanel.add(btnDelete);
-				
-				
-		  }catch(ClassNotFoundException| SQLException e){
-			  System.out.println(e.getMessage());
-		  }
+			}
+		});
 	  }  	
-	  
-	 
 	  
 	  public void  getDataFromDataBase(){
 		mc=ManagementCompany.getInstance();
@@ -78,13 +69,11 @@ public class DatabaseTable extends JFrame implements TableModelListener,ActionLi
 		getDataFromDataBase();
 		
 	}
+
+	 public void insertRow() {	}
 	 
-	
-	 public void insertRow() {
-		 
-		
-	}
 	 public void updateRow(Integer rowIndex,Integer columnIndex)  {
+		 DatabaseModel databaseModel=(DatabaseModel)table.getModel();
 		 Object idCompany =databaseModel.getValueAt(rowIndex, 0);
 		 Object updateValue=databaseModel.getValueAt(rowIndex, columnIndex);
 		 Object columnName=databaseModel.getColumnName(columnIndex);
@@ -98,42 +87,31 @@ public class DatabaseTable extends JFrame implements TableModelListener,ActionLi
 			 }
 		 };
 		 thread.start();
-		
-		
+
 	}
 	 
-	 public void reloadTable(){
+	 public void reloadTable() {
 		 
-		 databaseModel=new DatabaseModel();
-		 
-				try {
-					databaseModel.setDataSource(mc.selectAllCompany());
-				} catch (ClassNotFoundException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		 		 DatabaseModel databaseModel;	
+		 		databaseModel=new DatabaseModel(mc.selectAllCompany());
 				table.setModel(databaseModel);
 			 }
 		 
-		 
-		 /*databaseModel=new DatabaseModel();
+/*		 databaseModel=new DatabaseModel();
 		 Thread thread = new Thread("Reload Table"){
 			 public void run(){
-				try {
-					databaseModel.setDataSource(mc.selectAllCompany());
-				} catch (ClassNotFoundException | SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				table.setModel(databaseModel);
+				 DatabaseModel databaseModel=new DatabaseModel(mc.selectAllCompany());
+					table.setModel(databaseModel);
 			 }
 		 };
 		 thread.start();
-		 */
-		 
+
+}		 
+*/		 
 		 
 	
 	 public void deleteRow() {
+		 DatabaseModel databaseModel=(DatabaseModel)table.getModel();
 		 Object idCompany= (Long)databaseModel.getValueAt(table.getSelectedRow(), 0);
 		 Object idColumnName =databaseModel.getColumnName(0);
 		 Thread thread = new Thread("Delete Row"){
@@ -159,17 +137,6 @@ public class DatabaseTable extends JFrame implements TableModelListener,ActionLi
 				break;
 			}	
 		}
-	 @Override
-		public void actionPerformed(ActionEvent e) {
-			switch (e.getActionCommand()) {
-			case "Delete": 
-				
-				break;
-
-			default:
-				break;
-			}
-		} 
 
 	public static void main(String[] args) {	
 		SwingUtilities.invokeLater(new Runnable() {
