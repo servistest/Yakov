@@ -121,7 +121,13 @@ public class DatabaseModel extends AbstractTableModel {
 				data.add(row);
 				// сообщаем о прибавлении строки
 				fireTableRowsInserted(data.size()-1, data.size()-1);
+				//System.out.println(row.toString());
 				}
+		}
+		int i=0;
+		while(i<=data.size()-1){
+			System.out.println(data.get(i).toString());
+			i++;
 		}
 		
 		

@@ -3,21 +3,18 @@ package jtable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
-
-import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.xml.ws.spi.Invoker;
+
 
 public class DatabaseTable extends JFrame implements TableModelListener{
 
@@ -35,9 +32,8 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 		table.setDefaultEditor(Date.class, new DateCellEditor());
 		table.setDefaultEditor(Double.class, new DoubleCellEditor());
 		table.setDefaultEditor(Number.class, new NumberCellEditor());
-		table.setRowSelectionInterval(0, 0);
-		//this.add(new JScrollPane(table));
-		
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	
 		
 		JPanel btnPanel=new JPanel();
 		btnDelete=new JButton("Delete");
@@ -97,31 +93,31 @@ public class DatabaseTable extends JFrame implements TableModelListener{
 				table.setModel(databaseModel);
 			 }
 		 
-/*		 databaseModel=new DatabaseModel();
-		 Thread thread = new Thread("Reload Table"){
-			 public void run(){
-				 DatabaseModel databaseModel=new DatabaseModel(mc.selectAllCompany());
-					table.setModel(databaseModel);
-			 }
-		 };
-		 thread.start();
-
-}		 
-*/		 
+ 
 		 
 	
 	 public void deleteRow() {
 		 DatabaseModel databaseModel=(DatabaseModel)table.getModel();
 		 Object idCompany= (Long)databaseModel.getValueAt(table.getSelectedRow(), 0);
 		 Object idColumnName =databaseModel.getColumnName(0);
-		 Thread thread = new Thread("Delete Row"){
+		 Thread thread = new Thread("Delete company"){
 			 public void run(){
 				 mc.deleteCompany(idColumnName,idCompany);
-				 reloadTable();
 			 }
 		 };
 		 thread.start();
+		  
+		  SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				reloadTable();
+				
+			}
+		});
+		  
 		 
+	
 	}
 	 
 	 @Override
