@@ -1,4 +1,4 @@
-package com.practicaljava.lesson27;
+package src.com.practicaljava.lesson27;
 
 import java.io.IOException;
 import java.io.PrintWriter;

@@ -2,6 +2,8 @@
     <wb-module deploy-name="EEYakov">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Lesson27"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Lesson28"/>
         <property name="java-output-path" value="/EEYakov/build/classes"/>
         <property name="context-root" value="EEYakov"/>
     </wb-module>

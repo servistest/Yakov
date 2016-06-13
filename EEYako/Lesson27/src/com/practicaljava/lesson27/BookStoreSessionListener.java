@@ -1,4 +1,4 @@
-package com.practicaljava.lesson27;
+package src.com.practicaljava.lesson27;
 
 import javax.servlet.http.HttpSessionListener;
 import javax.servlet.http.HttpSessionEvent;
