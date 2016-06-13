@@ -2,20 +2,18 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionActivationListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import com.sun.xml.ws.runtime.dev.Session;
 
 
 
@@ -77,20 +75,36 @@ public class FindBookSocket extends HttpServlet implements HttpSessionListener {
 			out.append(" Name Book =" + tempBook.getName()+" Price book = "+tempBook.getPrice());
 		}
     }
+    private void createCookies(HttpServletRequest request, HttpServletResponse response) {
+    	Cookie cookie=new Cookie(request.getParameter("name"),request.getParameter("pice"));
+    	cookie.setMaxAge(24*24*10);
+    	response.addCookie(cookie);
+		
+	}
+    private void printCookies(HttpServletRequest request, HttpServletResponse response) {
+    	
+    		Cookie[] cookies=request.getCookies();
+    		if(cookies!=null){
+    			for(int i=0;i<cookies.length;i++){	
+        			out.append(cookies[i].getName()+" = "+cookies[i].getValue());
+        		}
+    		}else{
+    			out.append("Cookies = null");
+    		}
+
+	}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// TODO Auto-generated method stub
-	//	response.getWriter().append("Served at: ").append(request.getContextPath());
 		out=response.getWriter();
 		response.setContentType("text/html;charset=UTF-8");
-		
 		HttpSession session=request.getSession(true);
-
 		out.append(" Counter= "+prepareSessionCounter(session));
 		addBookToCart(session,request);
+		createCookies(request, response);
+		printCookies(request, response);
 		out.close();
 	//	request.getSession().invalidate();
-		//session.invalidate();
+	
 	}
 
 	/**
