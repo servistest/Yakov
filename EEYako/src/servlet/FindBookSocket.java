@@ -15,8 +15,6 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 
-
-
 /**
  * Servlet implementation class FindBookSocket
  */
@@ -75,8 +73,10 @@ public class FindBookSocket extends HttpServlet implements HttpSessionListener {
 			out.append(" Name Book =" + tempBook.getName()+" Price book = "+tempBook.getPrice());
 		}
     }
-    private void createCookies(HttpServletRequest request, HttpServletResponse response) {
-    	Cookie cookie=new Cookie(request.getParameter("name"),request.getParameter("pice"));
+    
+    private void createCookies(HttpSession session,HttpServletRequest request, HttpServletResponse response) {
+    	Integer counter =		(Integer)session.getAttribute("counter");
+    	Cookie cookie=new Cookie(request.getParameter("name")+counter,request.getParameter("price")+counter);
     	cookie.setMaxAge(24*24*10);
     	response.addCookie(cookie);
 		
@@ -86,7 +86,7 @@ public class FindBookSocket extends HttpServlet implements HttpSessionListener {
     		Cookie[] cookies=request.getCookies();
     		if(cookies!=null){
     			for(int i=0;i<cookies.length;i++){	
-        			out.append(cookies[i].getName()+" = "+cookies[i].getValue());
+        			out.append(" "+cookies[i].getName()+" = "+cookies[i].getValue());
         		}
     		}else{
     			out.append("Cookies = null");
@@ -99,8 +99,8 @@ public class FindBookSocket extends HttpServlet implements HttpSessionListener {
 		response.setContentType("text/html;charset=UTF-8");
 		HttpSession session=request.getSession(true);
 		out.append(" Counter= "+prepareSessionCounter(session));
-		addBookToCart(session,request);
-		createCookies(request, response);
+	//	addBookToCart(session,request);
+		createCookies(session,request, response);
 		printCookies(request, response);
 		out.close();
 	//	request.getSession().invalidate();
