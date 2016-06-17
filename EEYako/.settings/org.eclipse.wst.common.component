@@ -4,6 +4,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Lesson27"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Lesson28"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Lesson30"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Lesson31"/>
         <property name="java-output-path" value="/EEYakov/build/classes"/>
         <property name="context-root" value="EEYakov"/>
     </wb-module>
