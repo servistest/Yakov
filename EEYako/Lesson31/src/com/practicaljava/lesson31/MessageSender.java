@@ -17,9 +17,7 @@ public class MessageSender {
 	      // Look up the factory and the queue
 	      factory = (ConnectionFactory) jndiContext.lookup("MyTestConnectionFactory");
 	      Queue ioQueue = (Queue) jndiContext.lookup("MyJMSTestQueue");
-	      
-	      connection = factory.createConnection();
-	
+	      connection = factory.createConnection();	
 	      connection.start();
 
 	      session = connection.createSession( 

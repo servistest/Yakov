@@ -17,7 +17,12 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/glassfish4/mq/lib/jms.jar"/>
-	<classpathentry kind="lib" path="C:/glassfish4/mq/lib/imq.jar"/>
+	<classpathentry kind="lib" path="C:/ProjectEclipse/yakov/EEYako/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/ProjectEclipse/yakov/EEYako/mysql-connector-java-5.1.38-bin.jar"/>
+	<classpathentry kind="lib" path="C:/ProjectEclipse/yakov/EEYako/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/ProjectEclipse/yakov/EEYako/tomcat-websocket.jar"/>
+	<classpathentry kind="lib" path="C:/ProjectEclipse/yakov/EEYako/websocket-api.jar"/>
+	<classpathentry kind="lib" path="C:/Glassfish/mq/lib/imq.jar"/>
+	<classpathentry kind="lib" path="C:/Glassfish/mq/lib/jms.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
