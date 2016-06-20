@@ -32,7 +32,7 @@ public class MessageSender {
 	      queueSender.send(outMsg);
 	      queueSender.close();
 	      
-	      System.out.println("Successfully placed an order to purchase 200 shares of IBM");
+	      System.out.println("Successfully placed an order to purchase 100 shares of IBM");
 	    }
 	    catch (JMSException e){
 	           System.out.println("Error: " + e.getMessage());

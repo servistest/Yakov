@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(description = "The servlet that Sends a message to a queue", urlPatterns = { "/quote2" }, name="QuoteService")
-public class QuoteService extends HttpServlet {
+@WebServlet(description = "The servlet that Sends a message to a queue", urlPatterns = { "/recieve" }, name="QuoteRecieve")
+public class QuoteRecieve extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -23,12 +23,13 @@ public class QuoteService extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		out.println("<html><body bgcolor=yellow>");
-		out.println("<h2>Hello from QuoteService</h2>");
+		out.println("<h2>Hello from QuoteRecieve</h2>");
 		
-		out.println("Sending a message to the TestQueue");
 		
-		MessageSender mySender=new MessageSender();
-		mySender.sendMessage("IBM 100 Buy");
+		
+		MessageReciever mySender=new MessageReciever();
+		mySender.recieveMessage();
+		out.println("Recieve message...");
 		
 		//Destroy the session
 		request.getSession(true).invalidate();
